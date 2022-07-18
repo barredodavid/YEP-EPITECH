@@ -1,0 +1,103 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model users_tbl {
+  usr_id          Int           @id @default(autoincrement())
+  usr_username    String        @db.VarChar(20)
+  usr_mail        String        @db.VarChar(50)
+  usr_password    String        @db.VarChar(255)
+  usr_permissions Boolean
+  usr_token_iat   Int?
+  usr_token_exp   Int?
+  players_tbl     players_tbl[]
+}
+
+model data_tbl {
+  dta_id      Int         @id @default(autoincrement())
+  dta_date    DateTime    @db.Date
+  dta_content Json
+  dta_tool    Int
+  dta_user    Int
+  tools_tbl   tools_tbl   @relation(fields: [dta_tool], references: [too_id], onDelete: NoAction, onUpdate: NoAction, map: "data_tbl_ibfk_1")
+  players_tbl players_tbl @relation(fields: [dta_user], references: [ply_id], onDelete: NoAction, onUpdate: NoAction, map: "data_tbl_ibfk_2")
+
+  @@index([dta_tool], map: "dta_tool")
+  @@index([dta_user], map: "dta_user")
+}
+
+model images_tbl {
+  img_id       Int            @id @default(autoincrement())
+  img_name     String         @db.VarChar(20)
+  img_path     String         @db.VarChar(40)
+  players_tbl  players_tbl[]
+  projects_tbl projects_tbl[]
+}
+
+model players_tbl {
+  ply_id       Int            @id @default(autoincrement())
+  ply_role     Int
+  ply_avatar   Int
+  ply_user     Int
+  images_tbl   images_tbl     @relation(fields: [ply_avatar], references: [img_id], onDelete: NoAction, onUpdate: NoAction, map: "players_tbl_ibfk_2")
+  roles_tbl    roles_tbl      @relation(fields: [ply_role], references: [rle_id], onDelete: NoAction, onUpdate: NoAction, map: "players_tbl_ibfk_4")
+  users_tbl    users_tbl      @relation(fields: [ply_user], references: [usr_id], onDelete: NoAction, onUpdate: NoAction, map: "players_tbl_ibfk_3")
+  data_tbl     data_tbl[]
+  projects_tbl projects_tbl[]
+
+  @@index([ply_avatar], map: "ply_avatar")
+  @@index([ply_role], map: "ply_role")
+  @@index([ply_user], map: "ply_user")
+}
+
+model plugins_tbl {
+  plg_id          Int       @id @default(autoincrement())
+  plg_name        String    @db.VarChar(20)
+  plg_description String    @db.VarChar(200)
+  plg_path        String    @db.VarChar(30)
+  plg_tool        Int
+  tools_tbl       tools_tbl @relation(fields: [plg_tool], references: [too_id], onDelete: NoAction, onUpdate: NoAction, map: "plugins_tbl_ibfk_1")
+
+  @@index([plg_tool], map: "plg_tool")
+}
+
+model projects_tbl {
+  prj_id          Int         @id @default(autoincrement())
+  proj_name       String      @db.VarChar(30)
+  prj_description Int
+  prj_config      Json
+  prj_owner       Int
+  prj_avatar      Int
+  images_tbl      images_tbl  @relation(fields: [prj_avatar], references: [img_id], onDelete: NoAction, onUpdate: NoAction, map: "projects_tbl_ibfk_2")
+  players_tbl     players_tbl @relation(fields: [prj_owner], references: [ply_id], onDelete: NoAction, onUpdate: NoAction, map: "projects_tbl_ibfk_1")
+  tools_tbl       tools_tbl[]
+
+  @@index([prj_avatar], map: "prj_avatar")
+  @@index([prj_owner], map: "prj_owner")
+}
+
+model roles_tbl {
+  rle_id          Int           @id @default(autoincrement())
+  rle_name        String        @db.VarChar(20)
+  rle_description Int
+  players_tbl     players_tbl[]
+}
+
+model tools_tbl {
+  too_id          Int           @id @default(autoincrement())
+  too_name        String        @db.VarChar(20)
+  too_description String        @db.VarChar(200)
+  too_category    Int
+  too_path        String        @db.VarChar(30)
+  too_project     Int
+  projects_tbl    projects_tbl  @relation(fields: [too_project], references: [prj_id], onDelete: NoAction, onUpdate: NoAction, map: "tools_tbl_ibfk_1")
+  data_tbl        data_tbl[]
+  plugins_tbl     plugins_tbl[]
+
+  @@index([too_project], map: "too_project")
+}
