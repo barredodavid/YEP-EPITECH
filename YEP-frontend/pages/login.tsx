@@ -15,7 +15,7 @@ export default function Login({ message, connected }) {
         <>
             <Head>
                 <title>Meazay - Connexion</title>
-                <meta property="og:title" content="Meazay - Connexion" key="title" />
+                <meta property="og:title" content="Meazay | Login" key="title" />
             </Head>
             {
                     (!connected) ?

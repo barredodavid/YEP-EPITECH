@@ -19,7 +19,7 @@ module.exports = {
 					"100v": "100vh",
 				},
 				backgroundImage: {
-					"cat-computer": "url('/images/cat.jpg')"
+					"cat-computer": "url('/images/background.jpg')"
 				},
 				colors: {
 					"meaza-white": "#ffffff",

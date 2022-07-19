@@ -9,7 +9,7 @@ export default function RegisterSchema({ msg }) {
     const [message, setMessage] = useState('')
 
     useEffect(() => {
-        document.title = "Login | Meazay"
+        document.title = "Meazay | Register"
     })
 
     const schema = yup.object().shape({
@@ -73,22 +73,31 @@ export default function RegisterSchema({ msg }) {
             }}
         >
             {({ errors, touched }) => (
-                <div className="">
-                    <Form>
-                        <h1>Inscription</h1>
-                        <Field id="username" name="username" type="text" spellCheck="false" autoComplete="username" placeholder="Nom d'utilisateur" />
+                <div className="container mx-auto flex-1 flex flex-col items-center justify-center px-10 font-sans mt-10 text-white">
+                    <Form className="bg-gradient-to-r from-purple-700 to-purple-900 px-6 py-8 rounded-3xl shadow-md w-2/3">
+                        <h1 className="mb-8 text-3xl py-10 text-center">{`S'enregistrer`}</h1>
+
+                        <div className="container mx-auto flex-1 flex flex-col items-center justify-center">
+                        <Field className="bg-purple-900 block p-3 rounded-xl mb-4 w-2/3 " id="username" name="username" type="text" spellCheck="false" autoComplete="username" placeholder="Nom d'utilisateur" />
                         { errors.username && touched.username && <div className="error">{errors.username}</div> }
+                        </div>
 
-                        <Field id="password" name="password" type="password" autoComplete="current-password" placeholder="Mot de passe" />
+                        <div className="container mx-auto flex-1 flex flex-col items-center justify-center">
+                        <Field className="bg-purple-900 block p-3 rounded-xl mb-4 w-2/3" id="password" name="password" type="password" autoComplete="current-password" placeholder="Mot de passe" />
                         { errors.password && touched.password && <div className="error">{errors.password}</div> }
+                        </div>
 
-                        <Field id="mailaddr" name="mailaddr" type="email" autoComplete="off" placeholder="Adresse mail" />
+                        <div className="container mx-auto flex-1 flex flex-col items-center justify-center ">
+                        <Field className="bg-purple-900 block p-3 rounded-xl mb-10 w-2/3" id="mailaddr" name="mailaddr" type="email" autoComplete="off" placeholder="Adresse mail" />
                         { errors.mailaddr && touched.mailaddr && <div className="error">{errors.mailaddr}</div> }
+                        </div>
 
-                        <button type="submit">S&apos;inscrire</button>
+                        <div className="container mx-auto flex-1 flex flex-col items-center justify-center">
+                        <button className="bg-gradient-to-r from-purple-700 to-purple-900 text-center py-3 rounded-xl my-1 mb-10 w-2/3 border border-white" type="submit">S&apos;inscrire</button>
                         { <div className="">{message || msg || ""}</div> }
+                        </div>
 
-                        <div className="">
+                        <div className="text-center">
                             <p>Vous avez un compte ?
                                 <Link href='/login'> Connectez-vous</Link>
                             </p>

@@ -9,7 +9,7 @@ export default function LoginSchema({ msg }) {
     const [message, setMessage] = useState('')
 
     useEffect(() => {
-        document.title = "Login | Meazay"
+        document.title = "Meazay | Login"
     })
 
     const schema = yup.object().shape({
@@ -64,21 +64,28 @@ export default function LoginSchema({ msg }) {
             }}
         >
             {({ errors, touched }) => (
-                <div className="container mx-auto flex-1 flex flex-col items-center justify-center px-10 font-mono text-white">
-                    <Form className="bg-purple-500  px-6 py-8 rounded shadow-md w-full">
-                        <h1 className="mb-8 text-3xl text-center">Connexion</h1>
-                        <Field className="bg-purple-900 block border border-grey-light w-full p-3 rounded mb-4" id="mailaddr" name="mailaddr" type="text" spellCheck="false" autoComplete="email" placeholder="Adresse e-mail" />
+                <div className="container mx-auto flex-1 flex flex-col items-center justify-center mt-10 px-10 font-sans text-white">
+                    <Form className="bg-gradient-to-r from-purple-700 to-purple-900 px-6 py-8 rounded-3xl shadow-md w-2/3">
+                        <h1 className="mb-8 text-3xl py-10 text-center">Se connecter</h1>
+
+                        <div className="container mx-auto flex-1 flex flex-col items-center justify-center ">
+                        <Field className="bg-purple-900 mx-auto p-3 rounded-xl mb-4 w-2/3" id="mailaddr" name="mailaddr" type="text" spellCheck="false" autoComplete="email" placeholder="Adresse e-mail" />
                         { errors.mailaddr && touched.mailaddr && <div className="error">{errors.mailaddr}</div> }
+                        </div>
 
-                        <Field className="bg-purple-900 block border border-grey-light w-full p-3 rounded mb-4" id="password" name="password" type="password" autoComplete="current-password" placeholder="Mot de passe" />
+                        <div className="container mx-auto flex-1 flex flex-col items-center justify-center">
+                        <Field className="bg-purple-900 block p-3 rounded-xl mb-10 w-2/3" id="password" name="password" type="password" autoComplete="current-password" placeholder="Mot de passe" />
                         { errors.password && touched.password && <div className="error">{errors.password}</div> }
+                        </div>
 
-                        <button className="bg-purple-800 w-full text-center py-3 rounded hover:bg-green-dark focus:outline-none my-1" type="submit">Se connecter</button>
+                        <div className="container mx-auto flex-1 flex flex-col items-center justify-center">
+                        <button className="bg-gradient-to-r from-purple-700 to-purple-900 text-center py-3 rounded-xl my-1 w-2/3 mb-10 border border-white" type="submit">Se connecter</button>
                         { <div className="error">{message || msg || ""}</div> }
+                        </div>
 
-                        <div className="">
-                            <p>Vous ne possédez pas de compte ?
-                                <Link href="/register" className="text-purple-900"> Inscrivez-vous</Link>
+                        <div className="text-center">
+                            <p>{`Vous n'avez pas de compte ?`}
+                                <Link href="/register" className="text-blue-700"> Inscrivez-vous</Link>
                             </p>
                         </div>
                     </Form>

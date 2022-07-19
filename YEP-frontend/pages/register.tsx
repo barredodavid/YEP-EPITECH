@@ -14,7 +14,7 @@ export default function Register({ message, connected }) {
     return (
         <>
             <Head>
-                <title>Meazay - Inscription</title>
+                <title>Meazay | Register</title>
                 <meta property="og:title" content="Meazay - Inscription" key="title" />
             </Head>
             {
