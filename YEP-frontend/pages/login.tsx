@@ -8,6 +8,7 @@ import LoginSchema from 'components/forms/LoginSchema'
 import { UserAccount } from 'helpers/api/controllers'
 import { useRouter } from 'next/router'
 
+
 export default function Login({ message, connected }) {
     const router = useRouter()
 
